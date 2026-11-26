@@ -4,13 +4,18 @@ on:
     branches:
       - develop
 jobs:
-  ckeck-application:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['20', '22', '24.21.0']
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      
+      - name: Setup node
+        uses: actions/setup-node@v7
         with:
-          node-version: 24.21.0
-      - run: npm install
+          # token: ${{ secrets.GITHUB_TOKEN }}
+          node-version:  ${{ matrix.node }}     
       - run: npm test
       - run: npm run start
