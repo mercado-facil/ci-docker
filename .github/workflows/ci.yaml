@@ -4,18 +4,30 @@ on:
     branches:
       - develop
 jobs:
-  build: 
+  check-application: 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20', '22', '24.21.0']
+    # strategy:
+    #   matrix:
+    #     node: ['20', '22', '24.21.0']
     steps:
       - uses: actions/checkout@v7
       - name: Setup node
         uses: actions/setup-node@v7
         with:
           # token: ${{ secrets.GITHUB_TOKEN }}
-          node-version:  ${{ matrix.node }}    
+          node-version: 24.21.0    
       - run: npm install     
       - run: npm test
       - run: npm run start
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+      
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v7
+        with:
+          push: false
+          tags: lmperes/ci-docker:latest
