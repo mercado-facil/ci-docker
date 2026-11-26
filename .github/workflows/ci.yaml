@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           # token: ${{ secrets.GITHUB_TOKEN }}
-          node-version:  ${{ matrix.node }}     
+          node-version:  ${{ matrix.node }}    
+      - run: npm install     
       - run: npm test
       - run: npm run start
