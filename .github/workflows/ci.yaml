@@ -1,4 +1,4 @@
-name: ci-docker-workflow
+name: ci-nodejs-workflow
 on: [push]
 jobs:
   ckeck-application:
