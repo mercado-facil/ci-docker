@@ -8,5 +8,5 @@ function main() {
 function soma(a, b) {
     return a + b;
 }
-module.exports = { SVGAnimateElementoma };
+module.exports = { soma };
 main();
